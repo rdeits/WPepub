@@ -1,18 +1,9 @@
-import subprocess
 import os
 from bs4 import BeautifulSoup
-from collections import namedtuple
 from unidecode import unidecode
+from utils import html2rst, Chapter
 
 def WP_convert():
-    Chapter = namedtuple('Chapter', ['title', 'url', 'content'])
-
-    def html2rst(html):
-        # adapted from http://johnpaulett.com/2009/10/15/html-to-restructured-text-in-python-using-pandoc/
-        p = subprocess.Popen(['pandoc', '--from=html', '--no-wrap', '--to=rst'],
-                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        return unidecode(p.communicate(html)[0].decode('utf-8'))
-
     # Pull down a single episode in order to extract the TOC
     with open("../mirror/category/stories-arcs-1-10/arc-1-gestation/1-01/index.html", 'r') as f:
         page_content = f.read()
@@ -35,8 +26,6 @@ def WP_convert():
             with open(mirror_path, 'r') as f:
                 content = BeautifulSoup(f.read())
             chapters.append(Chapter(title=li.a.contents[0], url=url, content=content))
-
-    # chapters = [Chapter(title=c.title, url=c.url, content=BeautifulSoup(subprocess.check_output(['curl', c.url]))) for c in chapters]
 
     for c in chapters:
         display_title = unidecode(c.content.find_all(attrs={'class':'entry-title'})[0].get_text())
