@@ -19,7 +19,7 @@ def WP_convert():
         if li.li is None:
             print li.a.contents[0], li.a.get('href')
             url = li.a.get('href')
-            mirror_path = os.path.join(url.replace('http://parahumans.wordpress.com', '../mirror'), 'index.html')
+            mirror_path = os.path.join(url.replace('https://parahumans.wordpress.com', '../mirror'), 'index.html')
             mirror_path = mirror_path.encode('ascii', 'ignore')
             if 'arc-29' in mirror_path:
                 break
