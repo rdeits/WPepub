@@ -6,4 +6,7 @@ Requirements:
 * BeautifulSoup
 * [unidecode](https://pypi.python.org/pypi/Unidecode/)
 * [txt2epub](https://github.com/mfrasca/txt2epub)
-
+* curl
+* pandoc
+* docutils
+* ninja2
